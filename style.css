@@ -7,3 +7,9 @@
     width: 300px;
     height: auto;
 }
+
+.box {
+    width: 500px;
+    border: 3px solid #aaa;
+    border-radius: 6px;
+}
