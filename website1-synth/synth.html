@@ -1,0 +1,283 @@
+<html lang="en">
+<meta charset="UTF-8">
+<title>Synth</title>
+<link rel="icon" href="Saw.png">
+<!-- <link rel="stylesheet" href=""> -->
+<!-- <style></style> -->
+
+<body>
+    <div w3-include-html="../templates/navbar.html"></div>
+
+    <!-- <h1>This is a Heading</h1>
+    <p>This is a paragraph.</p>
+    <p>This is another paragraph.</p> -->
+    <br>
+    <div id="synthInput1">
+        <!-- <div class="dropdown" style="float:right;"> -->
+        <div class="dropdown">
+            <button class="btn" id="wavetables1">Wavetables</button>
+            <div class="dropdownContent">
+                <button class="wavetablesButton" onClick="startSound(0, 0)">SINEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(1, 0)">SQUAREWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(2, 0)">TRIANGLEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(3, 0)">SAWTOOTHWAVE</button>
+            </div>
+        </div>
+        <br>
+        <div style="display:flex">
+            <canvas id="waveGraph1"></canvas>
+            <canvas id="pianoRoll1"></canvas>
+        </div>
+        <br>
+        <button class="button" onClick="stopSound(0)">STOP</button>
+        
+        <div class="dropdown">
+            <button class="btn" id="changeNotes1">Notes</button>
+            <div class="dropdownContent">
+                <button class="notesButton" onClick="changeNotes(0, 0)">C</button>
+                <button class="notesButton" onClick="changeNotes(1, 0)">C#</button>
+                <button class="notesButton" onClick="changeNotes(2, 0)">D</button>
+                <button class="notesButton" onClick="changeNotes(3, 0)">D#</button>
+                <button class="notesButton" onClick="changeNotes(4, 0)">E</button>
+                <button class="notesButton" onClick="changeNotes(5, 0)">F</button>
+                <button class="notesButton" onClick="changeNotes(6, 0)">F#</button>
+                <button class="notesButton" onClick="changeNotes(7, 0)">G</button>
+                <button class="notesButton" onClick="changeNotes(8, 0)">G#</button>
+                <button class="notesButton" onClick="changeNotes(9, 0)">A</button>
+                <button class="notesButton" onClick="changeNotes(10, 0)">A#</button>
+                <button class="notesButton" onClick="changeNotes(11, 0)">B</button>
+            </div>
+        </div>   
+        <input type="number" id="octave1" name="octave" min="0" max="10">     
+        <div class="sliderContainer">
+            Tuning
+            <input
+                type="range"
+                min="0.5"
+                max="1.5"
+                step="0.05"
+                value="1"
+                class="slider"
+                id="frequency1"
+            >
+        </div>
+        <div class="sliderContainer">
+            Detune
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slider"
+                id="detune1"
+            >
+        </div>
+        <div class="sliderContainer">
+            Voices
+            <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="1"
+                class="slider"
+                id="voices1"
+            >
+        </div>
+        <div class="sliderContainer">
+            Volume
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+                class="slider"
+                id="volume1"
+            >
+        </div>
+    </div>
+    <div id="synthInput2">
+        <div class="dropdown">
+            <button class="btn" id="wavetables2">Wavetables</button>
+            <div class="dropdownContent">
+                <button class="wavetablesButton" onClick="startSound(0, 1)">SINEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(1, 1)">SQUAREWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(2, 1)">TRIANGLEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(3, 1)">SAWTOOTHWAVE</button>
+            </div>
+        </div>
+        <br>
+        <canvas id="waveGraph2"></canvas>
+        <br>
+        <button class="button" onClick="stopSound(1)">STOP</button>
+        
+        <div class="dropdown">
+            <button class="btn" id="changeNotes2">Notes</button>
+            <div class="dropdownContent">
+                <button class="notesButton" onClick="changeNotes(0, 1)">C</button>
+                <button class="notesButton" onClick="changeNotes(1, 1)">C#</button>
+                <button class="notesButton" onClick="changeNotes(2, 1)">D</button>
+                <button class="notesButton" onClick="changeNotes(3, 1)">D#</button>
+                <button class="notesButton" onClick="changeNotes(4, 1)">E</button>
+                <button class="notesButton" onClick="changeNotes(5, 1)">F</button>
+                <button class="notesButton" onClick="changeNotes(6, 1)">F#</button>
+                <button class="notesButton" onClick="changeNotes(7, 1)">G</button>
+                <button class="notesButton" onClick="changeNotes(8, 1)">G#</button>
+                <button class="notesButton" onClick="changeNotes(9, 1)">A</button>
+                <button class="notesButton" onClick="changeNotes(10, 1)">A#</button>
+                <button class="notesButton" onClick="changeNotes(11, 1)">B</button>
+            </div>
+        </div>
+        <input type="number" id="octave2" name="octave" min="0" max="10">     
+        <div class="sliderContainer">
+            Tuning
+            <input
+                type="range"
+                min="0.5"
+                max="1.5"
+                step="0.05"
+                value="1"
+                class="slider"
+                id="frequency2"
+            >
+        </div>
+        <div class="sliderContainer">
+            Detune
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slider"
+                id="detune2"
+            >
+        </div>
+        <div class="sliderContainer">
+            Voices
+            <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="1"
+                class="slider"
+                id="voices2"
+            >
+        </div>
+        <div class="sliderContainer">
+            Volume
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+                class="slider"
+                id="volume2"
+            >
+        </div>
+    </div>
+    <div id="synthInput3">
+        <div class="dropdown">
+            <button class="btn" id="wavetables3">Wavetables</button>
+            <div class="dropdownContent">
+                <button class="wavetablesButton" onClick="startSound(0, 2)">SINEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(1, 2)">SQUAREWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(2, 2)">TRIANGLEWAVE</button>
+                <button class="wavetablesButton" onClick="startSound(3, 2)">SAWTOOTHWAVE</button>
+            </div>
+        </div>
+        <br>
+        <canvas id="waveGraph3"></canvas>
+        <br>
+        <button class="button" onClick="stopSound(2)">STOP</button>
+        
+        <div class="dropdown">
+            <button class="btn" id="changeNotes3">Notes</button>
+            <div class="dropdownContent">
+                <button class="notesButton" onClick="changeNotes(0, 2)">C</button>
+                <button class="notesButton" onClick="changeNotes(1, 2)">C#</button>
+                <button class="notesButton" onClick="changeNotes(2, 2)">D</button>
+                <button class="notesButton" onClick="changeNotes(3, 2)">D#</button>
+                <button class="notesButton" onClick="changeNotes(4, 2)">E</button>
+                <button class="notesButton" onClick="changeNotes(5, 2)">F</button>
+                <button class="notesButton" onClick="changeNotes(6, 2)">F#</button>
+                <button class="notesButton" onClick="changeNotes(7, 2)">G</button>
+                <button class="notesButton" onClick="changeNotes(8, 2)">G#</button>
+                <button class="notesButton" onClick="changeNotes(9, 2)">A</button>
+                <button class="notesButton" onClick="changeNotes(10, 2)">A#</button>
+                <button class="notesButton" onClick="changeNotes(11, 2)">B</button>
+            </div>
+        </div>
+        <input type="number" id="octave3" name="octave" min="0" max="10">     
+        <div class="sliderContainer">
+            Tuning
+            <input
+                type="range"
+                min="0.5"
+                max="1.5"
+                step="0.05"
+                value="1"
+                class="slider"
+                id="frequency3"
+            >
+        </div>
+        <div class="sliderContainer">
+            Detune
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slider"
+                id="detune3"
+            >
+        </div>
+        <div class="sliderContainer">
+            Voices
+            <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="1"
+                class="slider"
+                id="voices3"
+            >
+        </div>
+        <div class="sliderContainer">
+            Volume
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+                class="slider"
+                id="volume3"
+            >
+        </div>
+    </div>
+    
+
+    <!-- Bulma CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
+
+    <script src="oscillator.js"></script>
+    <script src="wavegraph.js"></script>
+
+    <script src="../html-include.js"></script>
+
+    <link rel="stylesheet" href="style.css"> 
+</body>
+
+<script>
+includeHTML();
+</script>
+
+</html>
