@@ -18,7 +18,7 @@ function randomizeRGB(red, green, blue, variance) {
 
 function generate() {
     var tiles = []
-    var scale = 1
+    var scale = 2
 
     width = window.innerWidth;
 	height = window.innerHeight;
@@ -34,9 +34,15 @@ function generate() {
 
             var tile
             var ground = (((noise.simplex2(x/2000,0)+1)/2)*height/scale)/6+height/scale/8
-            if (height/scale - y < ground) {
-                if (height/scale - y > ground-10) {
-                    tile = "grass"
+            if (height/scale-y < ground) {
+                if (height/scale-y > ground-20) {
+                    if (Math.random()*(height/scale - y - ground) > -10) {
+                        // console.log(Math.random()*(height/scale - y - ground) < -20)
+                        tile = "grass"
+                    }
+                    else {
+                        tile = "earth"
+                    }
                 }
                 else {
                     tile = "earth"
@@ -47,11 +53,11 @@ function generate() {
             }
 
             if (tile == "grass") {
-                ctx.fillStyle = randomizeRGB(34, 139, 34, 12);
+                ctx.fillStyle = randomizeRGB(34, 139, 34, 6);
                 ctx.fillRect(x*scale, y*scale, scale, scale);
             }
             else if (tile == "earth") {
-                ctx.fillStyle = randomizeRGB(120, 69, 19, 15)
+                ctx.fillStyle = randomizeRGB(120, 69, 19, 10)
                 ctx.fillRect(x*scale, y*scale, scale, scale);
             }
             else if (tile == "air") {
