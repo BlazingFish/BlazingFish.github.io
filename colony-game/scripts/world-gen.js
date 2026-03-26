@@ -30,14 +30,22 @@ function generate() {
 	canvas.height = height;
 
 
+    generateMountain(width/scale/2, 1)
+
     for (let x = 0; x < width/scale; x++) {
         tiles.push([])
+        if (x == Math.floor(height/scale/2)) {
+            mountainStart = x
+        }
+        console.log(mountainStart)
+
         for (let y = 0; y < height/scale; y++) {
             random = Math.random()
             tiles[x].push([])
 
             var tile
             var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
+
             if (height/scale-y < ground) {
                 if (height/scale-y > ground-(grassDepth/scale)) {
                     if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
@@ -82,4 +90,15 @@ function approxOne(spread) {
 
 function getNoise(x) {
     return noise.simplex1(x)
+}
+
+function generateMountain(start, height) {
+    var start
+    var end
+    
+    return start
+}
+
+function polynomial (height, x) {
+    return height*x
 }
