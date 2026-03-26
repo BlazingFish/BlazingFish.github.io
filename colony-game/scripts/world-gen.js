@@ -17,27 +17,26 @@ function randomizeRGB(red, green, blue, variance) {
 }
 
 function generate() {
-    var tiles = []
-    var scale = 8
-
-    var grassDepth = 40
-    var hilliness = 2000 // Higher means less hilliness
-
     width = window.innerWidth;
 	height = window.innerHeight;
 
     canvas.width = width;
 	canvas.height = height;
 
+    var tiles = []
+    var scale = 8
 
-    generateMountain(width/scale/2, 1)
+    var grassDepth = 40
+    var hilliness = 2000 // Higher means less hilliness
+
+    var mountainPos = Math.random()*width/scale
+    var mountainPos2 = Math.random()*width/scale
+    var mountainWidth = (Math.random()+1)*(1/20)
+    var mountainHeight = (Math.random()+0.1)*75
+
 
     for (let x = 0; x < width/scale; x++) {
         tiles.push([])
-        if (x == Math.floor(height/scale/2)) {
-            mountainStart = x
-        }
-        console.log(mountainStart)
 
         for (let y = 0; y < height/scale; y++) {
             random = Math.random()
@@ -45,6 +44,9 @@ function generate() {
 
             var tile
             var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
+
+            ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
+            ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos2))**2)
 
             if (height/scale-y < ground) {
                 if (height/scale-y > ground-(grassDepth/scale)) {
@@ -90,15 +92,4 @@ function approxOne(spread) {
 
 function getNoise(x) {
     return noise.simplex1(x)
-}
-
-function generateMountain(start, height) {
-    var start
-    var end
-    
-    return start
-}
-
-function polynomial (height, x) {
-    return height*x
 }
