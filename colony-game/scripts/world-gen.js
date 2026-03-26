@@ -18,13 +18,17 @@ function randomizeRGB(red, green, blue, variance) {
 
 function generate() {
     var tiles = []
-    var scale = 2
+    var scale = 8
+
+    var grassDepth = 40
+    var hilliness = 2000 // Higher means less hilliness
 
     width = window.innerWidth;
 	height = window.innerHeight;
 
     canvas.width = width;
 	canvas.height = height;
+
 
     for (let x = 0; x < width/scale; x++) {
         tiles.push([])
@@ -33,34 +37,35 @@ function generate() {
             tiles[x].push([])
 
             var tile
-            var ground = (((noise.simplex2(x/2000,0)+1)/2)*height/scale)/6+height/scale/8
+            var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
             if (height/scale-y < ground) {
-                if (height/scale-y > ground-20) {
-                    if (Math.random()*(height/scale - y - ground) > -10) {
-                        // console.log(Math.random()*(height/scale - y - ground) < -20)
-                        tile = "grass"
+                if (height/scale-y > ground-(grassDepth/scale)) {
+                    if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                        tile = ["grass"]
                     }
                     else {
-                        tile = "earth"
+                        // console.log((height/scale-y) - (ground-(grassDepth/scale)))
+                        tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
                     }
                 }
                 else {
-                    tile = "earth"
+                    // console.log((height/scale-y) - (ground-(grassDepth/scale)))
+                    tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
                 }
             }
             else {
-                tile = "air"
+                tile = ["air"]
             }
 
-            if (tile == "grass") {
+            if (tile[0] == "grass") {
                 ctx.fillStyle = randomizeRGB(34, 139, 34, 6);
                 ctx.fillRect(x*scale, y*scale, scale, scale);
             }
-            else if (tile == "earth") {
-                ctx.fillStyle = randomizeRGB(120, 69, 19, 10)
+            else if (tile[0] == "earth") {
+                ctx.fillStyle = randomizeRGB(120+tile[1]*scale/2, 69+tile[1]*scale/2, 19+tile[1]*scale/2, 10)
                 ctx.fillRect(x*scale, y*scale, scale, scale);
             }
-            else if (tile == "air") {
+            else if (tile[0] == "air") {
                 ctx.fillStyle = "rgb(0, 0, 0)";
                 ctx.fillRect(x*scale, y*scale, scale, scale);
             }
@@ -69,8 +74,10 @@ function generate() {
             tiles[x][y] = tile
         }
     }
+}
 
-    // console.log(tiles)
+function approxOne(spread) {
+    return (Math.random()+0.5)/((spread-1)/2*spread)
 }
 
 function getNoise(x) {
