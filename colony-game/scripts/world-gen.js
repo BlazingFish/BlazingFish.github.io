@@ -30,7 +30,6 @@ function generate() {
     var hilliness = 2000 // Higher means less hilliness
 
     var mountainPos = Math.random()*width/scale
-    var mountainPos2 = Math.random()*width/scale
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
 
@@ -45,13 +44,28 @@ function generate() {
             var tile
             var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
 
-            ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
-            ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos2))**2)
-
-            if (height/scale-y < ground) {
-                if (height/scale-y > ground-(grassDepth/scale)) {
-                    if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
-                        tile = ["grass"]
+            if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
+                ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
+                if (height/scale-y < ground) {
+                    tile = ["rock"]
+                }
+                else {
+                    tile = ["air"]
+                }
+            }
+            else {
+                if (height/scale-y < ground) {
+                // if (mountainPos > x) {
+                    // tile = ["rock"]
+                // }
+                    if (height/scale-y > ground-(grassDepth/scale)) {
+                        if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                            tile = ["grass"]
+                        }
+                        else {
+                            // console.log((height/scale-y) - (ground-(grassDepth/scale)))
+                            tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                        }
                     }
                     else {
                         // console.log((height/scale-y) - (ground-(grassDepth/scale)))
@@ -59,30 +73,30 @@ function generate() {
                     }
                 }
                 else {
-                    // console.log((height/scale-y) - (ground-(grassDepth/scale)))
-                    tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                    tile = ["air"]
                 }
             }
-            else {
-                tile = ["air"]
-            }
 
-            if (tile[0] == "grass") {
-                ctx.fillStyle = randomizeRGB(34, 139, 34, 6);
-                ctx.fillRect(x*scale, y*scale, scale, scale);
-            }
-            else if (tile[0] == "earth") {
-                ctx.fillStyle = randomizeRGB(120+tile[1]*scale/2, 69+tile[1]*scale/2, 19+tile[1]*scale/2, 10)
-                ctx.fillRect(x*scale, y*scale, scale, scale);
-            }
-            else if (tile[0] == "air") {
-                ctx.fillStyle = "rgb(0, 0, 0)";
-                ctx.fillRect(x*scale, y*scale, scale, scale);
-            }
-
+            colourTile(tile, scale)
+            ctx.fillRect(x*scale, y*scale, scale, scale);            
 
             tiles[x][y] = tile
         }
+    }
+}
+
+function colourTile(properties, scale) {
+    if (properties[0] == "grass") {
+        ctx.fillStyle = randomizeRGB(34, 139, 34, 6);
+    }
+    else if (properties[0] == "earth") {
+        ctx.fillStyle = randomizeRGB(120+properties[1]*scale/2, 69+properties[1]*scale/2, 19+properties[1]*scale/2, 10)
+    }
+    else if (properties[0] == "air") {
+        ctx.fillStyle = "rgb(0, 0, 0)";
+    }
+    else if (properties[0] == "rock") {
+        ctx.fillStyle = "rgb(100, 100, 100"
     }
 }
 
