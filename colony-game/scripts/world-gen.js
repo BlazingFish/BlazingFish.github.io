@@ -1,20 +1,23 @@
 const canvas = document.getElementById("canvas");
 
-var noise = new Noise(Math.random());
+const scale = 8
 
-ctx = canvas.getContext("2d");
+var noise = new Noise(Math.random());
+var tiles = []
+
+// ctx = canvas.getContext("2d");
 
 generate()
 
 // 1D perlin noise
 
-function randomizeRGB(red, green, blue, variance) {
-    const r = (1+(Math.random()-0.5)/variance)*red
-    const g = (1+(Math.random()-0.5)/variance)*green
-    const b = (1+(Math.random()-0.5)/variance)*blue
+// function randomizeRGB(red, green, blue, variance) {
+//     const r = (1+(Math.random()-0.5)/variance)*red
+//     const g = (1+(Math.random()-0.5)/variance)*green
+//     const b = (1+(Math.random()-0.5)/variance)*blue
 
-    return ("rgb("+String(r)+","+String(g)+","+String(b)+")")
-}
+//     return ("rgb("+String(r)+","+String(g)+","+String(b)+")")
+// }
 
 function generate() {
     width = window.innerWidth;
@@ -22,9 +25,6 @@ function generate() {
 
     canvas.width = width;
 	canvas.height = height;
-
-    var tiles = []
-    var scale = 8
 
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
@@ -77,28 +77,39 @@ function generate() {
                 }
             }
 
-            colourTile(tile, scale)
-            ctx.fillRect(x*scale, y*scale, scale, scale);            
+            // var colour = colourTile(tile, scale)
+            // if (colour != false) {
+            //     ctx.fillStyle = colour
+            //     ctx.fillRect(x*scale, y*scale, scale, scale);
+            // }
+            // ctx.fillRect(x*scale, y*scale, scale, scale);        
 
             tiles[x][y] = tile
+            // console.log(tiles[x][y])
         }
     }
+    console.log(tiles)
 }
 
-function colourTile(properties, scale) {
-    if (properties[0] == "grass") {
-        ctx.fillStyle = randomizeRGB(34, 139, 34, 6);
-    }
-    else if (properties[0] == "earth") {
-        ctx.fillStyle = randomizeRGB(120+properties[1]*scale/2, 69+properties[1]*scale/2, 19+properties[1]*scale/2, 10)
-    }
-    else if (properties[0] == "air") {
-        ctx.fillStyle = "rgb(0, 0, 0)";
-    }
-    else if (properties[0] == "rock") {
-        ctx.fillStyle = "rgb(100, 100, 100"
-    }
-}
+// function colourTile(properties, scale) {
+//     if (properties[0] == "grass") {
+//         return randomizeRGB(34, 139, 34, 6);
+//     }
+//     else if (properties[0] == "earth") {
+//         return randomizeRGB(120+properties[1]*scale/2, 69+properties[1]*scale/2, 19+properties[1]*scale/2, 10)
+//         // return randomizeRGB(120, 69, 19, 10)
+//     }
+//     // else if (properties[0] == "air") {
+//     //     return "rgb(0, 0, 0)";
+//     // }
+//     else if (properties[0] == "rock") {
+//         return "rgb(100, 100, 100"
+//     }
+//     else {
+//         return false
+//     }
+//     // return
+// }
 
 function approxOne(spread) {
     return (Math.random()+0.5)/((spread-1)/2*spread)
