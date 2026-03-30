@@ -26,6 +26,8 @@ function generate() {
     canvas.width = width;
 	canvas.height = height;
 
+    console.log(height)
+
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
 
@@ -45,7 +47,7 @@ function generate() {
 
             if (x == 50 && y == 100) {
                 tile = ["torch", 1]
-                lights.push(x+","+y+","+1)
+                lights.push(x+","+100+","+1)
             }
             else {
                 if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
