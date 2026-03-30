@@ -33,7 +33,6 @@ function generate() {
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
 
-
     for (let x = 0; x < width/scale; x++) {
         tiles.push([])
 
@@ -44,39 +43,42 @@ function generate() {
             var tile
             var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
 
-            if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
-                ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
-                if (height/scale-y < ground) {
-                    tile = ["rock"]
-                }
-                else {
-                    tile = ["air"]
-                }
+            if (x == 50 && y == 100) {
+                tile = ["torch", 1]
+                lights.push(x+","+y+","+1)
             }
             else {
-                if (height/scale-y < ground) {
-                // if (mountainPos > x) {
-                    // tile = ["rock"]
-                // }
-                    if (height/scale-y > ground-(grassDepth/scale)) {
-                        if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
-                            tile = ["grass"]
+                if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
+                    ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
+                    if (height/scale-y < ground) {
+                        tile = ["rock", 0]
+                    }
+                    else {
+                        tile = ["air", 0]
+                    }
+                }
+                else {
+                    if (height/scale-y < ground) {
+                        if (height/scale-y > ground-(grassDepth/scale)) {
+                            if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                                tile = ["grass", 0]
+                            }
+                            else {
+                                // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                                tile = ["earth", 0]
+                            }
                         }
                         else {
-                            // console.log((height/scale-y) - (ground-(grassDepth/scale)))
-                            tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                            // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                            tile = ["earth", 0]
                         }
                     }
                     else {
-                        // console.log((height/scale-y) - (ground-(grassDepth/scale)))
-                        tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                        tile = ["air"]
                     }
                 }
-                else {
-                    tile = ["air"]
-                }
+    
             }
-
             // var colour = colourTile(tile, scale)
             // if (colour != false) {
             //     ctx.fillStyle = colour
@@ -85,10 +87,15 @@ function generate() {
             // ctx.fillRect(x*scale, y*scale, scale, scale);        
 
             tiles[x][y] = tile
+            drawTiles(x, y)
             // console.log(tiles[x][y])
         }
     }
-    console.log(tiles)
+    for (let i = 0; i < lights.length; i++) {
+        checkAroundLight(lights[i])
+    }
+    // checkAroundLight()
+    // console.log(tiles.length*tiles[0].length)
 }
 
 // function colourTile(properties, scale) {
