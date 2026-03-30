@@ -21,7 +21,7 @@ function randomizeRGB(red, green, blue, variance) {
     return ("rgb("+String(r)+","+String(g)+","+String(b)+")")
 }
 
-function colourTile(properties, scale) {
+function colourTile(properties) {
     let light = properties[1]
 
     if (properties[0] == "grass") {

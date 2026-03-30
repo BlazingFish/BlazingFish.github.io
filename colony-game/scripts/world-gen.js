@@ -95,7 +95,7 @@ function generate() {
         checkAroundLight(lights[i])
     }
     // checkAroundLight()
-    // console.log(tiles.length*tiles[0].length)
+    // console.log(tiles[0].length)
 }
 
 // function colourTile(properties, scale) {
