@@ -7,7 +7,7 @@ function drawTiles(x, y, width, height) {
     
             if (colour != false) {
                 ctx.fillStyle = colour
-                ctx.fillRect(x*scale/(1368/width), y*scale/(757/height), scale/(1368/width), scale/(757/height));
+                ctx.fillRect(x*scale, y*scale, scale+1, scale+1); // Remove +1 later
             }
     //     }
     // }

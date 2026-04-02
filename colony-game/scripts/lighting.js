@@ -12,7 +12,8 @@ function checkAroundLight(lights) {
     let y = parseInt(lightsArray[1])
     let intensity = parseFloat(lightsArray[2]) // Between 0 and 1
 
-    let radius = (1 + intensity*2)/(1368/width)
+    let radius = (3 + intensity*0)
+    // /(1368/width)
 
     // console.log(intensity)
 
