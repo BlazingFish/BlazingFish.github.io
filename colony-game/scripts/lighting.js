@@ -39,7 +39,7 @@ function checkAroundLight(parseLights) {
         let circleX = x + circle[i][0]
         let circleY = y + circle[i][1]
 
-        if (0 < circleX && 0 < circleY && circleX < xRes && circleY < yRes) {
+        if (0 <= circleX && 0 <= circleY && circleX < xRes && circleY < yRes) {
             if (tiles[circleX][circleY][1] < circle[i][2]) {
                 tiles[circleX][circleY][1] = circle[i][2]
                 drawTiles(x+circle[i][0], y+circle[i][1])

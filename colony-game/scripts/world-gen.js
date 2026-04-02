@@ -12,8 +12,8 @@ generate()
 // 1D perlin noise <- idk what this comment is doing here, but it's staying.
 
 function generate() {
-    // ctx.save()
-    // ctx.scale(1912, 948)
+    ctx.save()
+    ctx.scale(1912, 948)
 
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
@@ -81,7 +81,7 @@ function generate() {
     for (let i = 0; i < lights.length; i++) {
         checkAroundLight(lights[i])
     }
-    // ctx.restore()
+    ctx.restore()
 }
 
 
