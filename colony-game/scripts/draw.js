@@ -1,4 +1,4 @@
-function drawTiles(x, y) {
+function drawTiles(x, y, width, height) {
     // for (let x = 0; x < tiles.length; x++) {
     //     for (let y = 0; y < tiles[x].length; y++) {
     
@@ -7,7 +7,7 @@ function drawTiles(x, y) {
     
             if (colour != false) {
                 ctx.fillStyle = colour
-                ctx.fillRect(x*scale, y*scale, scale, scale);
+                ctx.fillRect(x*scale/(1368/width), y*scale/(757/height), scale/(1368/width), scale/(757/height));
             }
     //     }
     // }

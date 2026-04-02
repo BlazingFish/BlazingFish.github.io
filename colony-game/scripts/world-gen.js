@@ -20,13 +20,11 @@ generate()
 // }
 
 function generate() {
-    var width = window.innerWidth;
-	var height = window.innerHeight;
+    width = window.innerWidth;
+    height = window.innerHeight;
 
     canvas.width = width;
-	canvas.height = height;
-
-    console.log(height)
+    canvas.height = height;
 
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
@@ -35,24 +33,24 @@ function generate() {
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
 
-    for (let x = 0; x < width/scale; x++) {
+    for (let x = 0; x < 1368/scale; x++) {
         tiles.push([])
 
-        for (let y = 0; y < height/scale; y++) {
+        for (let y = 0; y < 757/scale; y++) {
             random = Math.random()
             tiles[x].push([])
 
             var tile
-            var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*height/scale)/6+height/scale/8
+            var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*757/scale)/6+757/scale/8
 
-            if (x == 50 && y == 100) {
+            if (x == 100 && y == 75) {
                 tile = ["torch", 1]
                 lights.push(x+","+100+","+1)
             }
             else {
                 if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
                     ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
-                    if (height/scale-y < ground) {
+                    if (757/scale-y < ground) {
                         tile = ["rock", 0]
                     }
                     else {
@@ -60,9 +58,9 @@ function generate() {
                     }
                 }
                 else {
-                    if (height/scale-y < ground) {
-                        if (height/scale-y > ground-(grassDepth/scale)) {
-                            if (((height/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                    if (757/scale-y < ground) {
+                        if (757/scale-y > ground-(grassDepth/scale)) {
+                            if (((757/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
                                 tile = ["grass", 0]
                             }
                             else {
@@ -89,12 +87,12 @@ function generate() {
             // ctx.fillRect(x*scale, y*scale, scale, scale);        
 
             tiles[x][y] = tile
-            drawTiles(x, y)
+            drawTiles(x, y, width, height)
             // console.log(tiles[x][y])
         }
     }
     for (let i = 0; i < lights.length; i++) {
-        checkAroundLight(lights[i])
+        checkAroundLight(lights[i][0]/(1368/width), lights[i][1]/(757/height), lights[i][2])
     }
     // checkAroundLight()
     // console.log(tiles[0].length)

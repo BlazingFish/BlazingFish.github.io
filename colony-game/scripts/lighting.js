@@ -1,6 +1,9 @@
 // Use GPU if poorly optimized
 
 var ctx = canvas.getContext("2d");
+var width
+var height
+
 var lights = [] // x, y, intensity
 
 function checkAroundLight(lights) {
@@ -9,7 +12,7 @@ function checkAroundLight(lights) {
     let y = parseInt(lightsArray[1])
     let intensity = parseFloat(lightsArray[2]) // Between 0 and 1
 
-    let radius = 16 + intensity*6
+    let radius = (1 + intensity*2)/(1368/width)
 
     // console.log(intensity)
 
