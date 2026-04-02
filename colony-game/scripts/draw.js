@@ -1,16 +1,10 @@
-function drawTiles(x, y, width, height) {
-    // for (let x = 0; x < tiles.length; x++) {
-    //     for (let y = 0; y < tiles[x].length; y++) {
+function drawTiles(x, y) {
+    var colour = colourTile(tiles[x][y], scale)
     
-            // console.log(tiles[x][y], x, y, tiles.length, tiles[x].length)
-            var colour = colourTile(tiles[x][y], scale)
-    
-            if (colour != false) {
-                ctx.fillStyle = colour
-                ctx.fillRect(x*scale, y*scale, scale+1, scale+1); // Remove +1 later
-            }
-    //     }
-    // }
+    if (colour != false) {
+        ctx.fillStyle = colour
+        ctx.fillRect(x*scale, y*scale, scale, scale);
+    }
 }
 
 function randomizeRGB(red, green, blue, variance) {
@@ -39,6 +33,9 @@ function colourTile(properties) {
     else if (properties[0] == "torch") {
         return "rgb(255, 165, 0)"
     }
+    // else if (properties[0] == "sky") {
+    //     return "rgb(255, 100, 100"
+    // }
     else {
         return false
     }

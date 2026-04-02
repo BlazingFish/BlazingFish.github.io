@@ -1,31 +1,17 @@
 const canvas = document.getElementById("canvas");
 
 const scale = 8
+const xRes = Math.ceil(1912/scale)
+const yRes = Math.ceil(948/scale)
 
 var noise = new Noise(Math.random());
 var tiles = []
-
-// ctx = canvas.getContext("2d");
 
 generate()
 
 // 1D perlin noise
 
-// function randomizeRGB(red, green, blue, variance) {
-//     const r = (1+(Math.random()-0.5)/variance)*red
-//     const g = (1+(Math.random()-0.5)/variance)*green
-//     const b = (1+(Math.random()-0.5)/variance)*blue
-
-//     return ("rgb("+String(r)+","+String(g)+","+String(b)+")")
-// }
-
 function generate() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    canvas.width = width;
-    canvas.height = height;
-
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
 
@@ -33,40 +19,41 @@ function generate() {
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
 
-    for (let x = 0; x < 1368/scale; x++) {
+    // console.log(width, height)
+
+    for (let x = 0; x < xRes; x++) {
         tiles.push([])
 
-        for (let y = 0; y < 757/scale; y++) {
+        for (let y = 0; y < yRes; y++) {
             random = Math.random()
             tiles[x].push([])
 
             var tile
-            var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*757/scale)/6+757/scale/8
+            var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*yRes)/6+yRes/8
 
-            if (x == 100 && y == 75) {
-                tile = ["torch", 1]
-                lights.push(x+","+100+","+1)
-            }
-            else {
-                if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
-                    ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
-                    if (757/scale-y < ground) {
-                        tile = ["rock", 0]
-                    }
-                    else {
-                        tile = ["air", 0]
-                    }
+            // if (x == 50 && y == 100) {
+            //     tile = ["torch", 1]
+            //     lights.push(x+","+y+","+1)
+            // }
+            
+            if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
+                ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
+                if (yRes-y < ground) {
+                    tile = ["rock", 0]
+                }
+                else if (yRes-y < ground + 1) {
+                    tile = ["sky", 1]
+                    lights.push(x+","+y+","+1)
                 }
                 else {
-                    if (757/scale-y < ground) {
-                        if (757/scale-y > ground-(grassDepth/scale)) {
-                            if (((757/scale-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
-                                tile = ["grass", 0]
-                            }
-                            else {
-                                // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
-                                tile = ["earth", 0]
-                            }
+                    tile = ["air", 0]
+                }
+            }
+            else {
+                if (yRes-y < ground) {
+                    if (yRes-y > ground-(grassDepth/scale)) {
+                        if (((yRes-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                            tile = ["grass", 0]
                         }
                         else {
                             // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
@@ -74,11 +61,20 @@ function generate() {
                         }
                     }
                     else {
-                        tile = ["air", 0]
+                        // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
+                        tile = ["earth", 0]
                     }
                 }
-    
+                else if (yRes-y < ground + 1) {
+                    tile = ["sky", 1]
+                    lights.push(x+","+y+","+1)
+                }
+                else {
+                    tile = ["air", 0]
+                }
             }
+    
+            
             // var colour = colourTile(tile, scale)
             // if (colour != false) {
             //     ctx.fillStyle = colour
