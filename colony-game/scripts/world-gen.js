@@ -37,31 +37,65 @@ function generate() {
             //     lights.push(x+","+y+","+1)
             // }
             
-            if (mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2) > 1) {
-                ground += mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
-                if (yRes-y < ground) {
-                    tile = ["rock", 0]
-                }
-                else if (yRes-y < ground + 1) {
-                    tile = ["sky", 1]
-                    lights.push([x, y, 1])
-                }
-                else {
-                    tile = ["air", 0]
-                }
+            const currentMountainHeight = mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
+            const newLayer = ground - (grassDepth/scale)
+
+            if (currentMountainHeight > 1) { // Mountain
+                ground += currentMountainHeight
+                // if (yRes-y < ground) {
+                    // if (yRes-y > (newLayer)*currentMountainHeight) {
+                    //     if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale) {
+                    //         tile = ["grass", 0]
+                    //     }
+                    //     else {
+                    //         tile = ["earth", 0]
+                    //     }
+                    // }
+                    // else if (yRes-y > (newLayer - 2*scale)*currentMountainHeight){
+                    //     if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale - 4*scale) {
+                    //         tile = ["earth", 0]
+                    //     }
+                    //     else {
+                    //         tile = ["rock", 0]
+                    //     }
+                    // }
+                    // else {
+                    //     tile = ["rock", 0]
+                    // }
+                // }
+                // else {
+                    if (yRes-y < ground) {
+                        tile = ["rock", 0]
+                    }
+                    else if (yRes-y < ground + 1) {
+                        tile = ["sky", 1]
+                        lights.push([x, y, 1])
+                    }
+                    else {
+                        tile = ["air", 0]
+                    }
+                // }
             }
-            else {
+            else { // Plains
                 if (yRes-y < ground) {
-                    if (yRes-y > ground-(grassDepth/scale)) {
-                        if (((yRes-y)-(ground-(grassDepth/scale)))*(approxOne(1.5)) > grassDepth/scale) {
+                    if (yRes-y > newLayer) {
+                        if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale) {
                             tile = ["grass", 0]
                         }
                         else {
                             tile = ["earth", 0]
                         }
                     }
+                    else if (yRes-y > newLayer - 2*scale){
+                        if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale - 4*scale) {
+                            tile = ["earth", 0]
+                        }
+                        else {
+                            tile = ["rock", 0]
+                        }
+                    }
                     else {
-                        tile = ["earth", 0]
+                        tile = ["rock", 0]
                     }
                 }
                 else if (yRes-y < ground + 1) {
