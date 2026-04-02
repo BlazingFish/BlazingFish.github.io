@@ -14,7 +14,7 @@ canvas.height = height;
 
 
 function checkAroundLight(lights) {
-    let lightsArray = lights.split(",")
+    let lightsArray = lights.split(",");
     let x = parseInt(lightsArray[0])
     let y = parseInt(lightsArray[1])
     let intensity = parseFloat(lightsArray[2]) // Between 0 and 1
