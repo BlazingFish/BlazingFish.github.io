@@ -13,12 +13,12 @@ generate()
 
 function generate() {
     ctx.save()
-    ctx.scale(1912, 948)
+    ctx.scale(width, height)
 
     var grassDepth = 40
     var hilliness = 2000 // Higher means less hilliness
 
-    var mountainPos = Math.random()*width/scale
+    var mountainPos = Math.random()*xRes
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
 
