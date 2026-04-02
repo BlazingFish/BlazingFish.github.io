@@ -9,7 +9,7 @@ var tiles = []
 
 generate()
 
-// 1D perlin noise
+// 1D perlin noise <- idk what this comment is doing here, but it's staying.
 
 function generate() {
     var grassDepth = 40
@@ -18,8 +18,6 @@ function generate() {
     var mountainPos = Math.random()*width/scale
     var mountainWidth = (Math.random()+1)*(1/20)
     var mountainHeight = (Math.random()+0.1)*75
-
-    // console.log(width, height)
 
     for (let x = 0; x < xRes; x++) {
         tiles.push([])
@@ -43,7 +41,7 @@ function generate() {
                 }
                 else if (yRes-y < ground + 1) {
                     tile = ["sky", 1]
-                    lights.push(x+","+y+","+1)
+                    lights.push([x, y, 1])
                 }
                 else {
                     tile = ["air", 0]
@@ -56,42 +54,29 @@ function generate() {
                             tile = ["grass", 0]
                         }
                         else {
-                            // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
                             tile = ["earth", 0]
                         }
                     }
                     else {
-                        // tile = ["earth", (height/scale-y) - (ground-(grassDepth/scale))]
                         tile = ["earth", 0]
                     }
                 }
                 else if (yRes-y < ground + 1) {
                     tile = ["sky", 1]
-                    lights.push(x+","+y+","+1)
+                    lights.push([x, y, 1])
                 }
                 else {
                     tile = ["air", 0]
                 }
             }
-    
-            
-            // var colour = colourTile(tile, scale)
-            // if (colour != false) {
-            //     ctx.fillStyle = colour
-            //     ctx.fillRect(x*scale, y*scale, scale, scale);
-            // }
-            // ctx.fillRect(x*scale, y*scale, scale, scale);        
 
             tiles[x][y] = tile
             drawTiles(x, y, width, height)
-            // console.log(tiles[x][y])
         }
     }
     for (let i = 0; i < lights.length; i++) {
-        checkAroundLight(lights[i][0]/(1368/width), lights[i][1]/(757/height), lights[i][2])
+        checkAroundLight(lights[i])
     }
-    // checkAroundLight()
-    // console.log(tiles[0].length)
 }
 
 

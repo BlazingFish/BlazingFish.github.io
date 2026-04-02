@@ -13,15 +13,12 @@ canvas.width = width;
 canvas.height = height;
 
 
-function checkAroundLight(lights) {
-    let lightsArray = lights.split(",");
-    let x = parseInt(lightsArray[0])
-    let y = parseInt(lightsArray[1])
-    let intensity = parseFloat(lightsArray[2]) // Between 0 and 1
+function checkAroundLight(parseLights) {
+    let x = parseLights[0]
+    let y = parseLights[1]
+    let intensity = parseLights[2] // Between 0 and 1
 
     let radius = Math.round(16 + intensity*6)
-
-    // console.log(intensity)
 
     var circle = [] // x, y, brightness
 
@@ -38,12 +35,9 @@ function checkAroundLight(lights) {
         }
     }
 
-    // console.log(circle)
-
     for (let i = 0; i < circle.length; i++){
         let circleX = x + circle[i][0]
         let circleY = y + circle[i][1]
-        // console.log(circleX, circleY)
 
         if (0 < circleX && 0 < circleY && circleX < xRes && circleY < yRes) {
             if (tiles[circleX][circleY][1] < circle[i][2]) {
