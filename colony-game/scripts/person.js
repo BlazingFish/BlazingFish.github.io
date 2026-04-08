@@ -2,7 +2,16 @@ var action // Current action
 
 var people = []
 
-var maleNames = [
+// var personGrid
+
+// for (let x = 0; x < xRes*2; x++) {
+//     personGrid.push([])
+//     for (let y = 0; y < yRes*2; y++) {
+//         personGrid[x].push([])
+//     }
+// }
+
+var names = [
     "Zimfafawe",
     "Bob",
     "Chuck",
@@ -13,10 +22,42 @@ var maleNames = [
     "Muhammad",
     "Sam",
     "Rhys",
-    "Henry"
+    "Henry",
+    "Jacob",
+    "Zac",
+    "Andrew",
+    "Liv",
+    "Anna",
+    "Victoria",
+    "Isabelle",
+    "Sabine",
+    "Laura",
+    "Charlie",
+    "Lucy",
+    "Andrea",
+    "Peter",
+    "Jack",
+    "Harry",
+    "Ben",
+    "Jane",
+    "Nick",
+    "Penny",
+    "Kym",
+    "Kim",
+    "Alex",
+    "Steve",
+    "Tom",
+    "Chris",
+    "Ian",
+    "Claire",
+    "Zara",
+    "Lily",
+    "Willow",
+    "Ella",
+    "Margaret"
 ]
 
-class person {
+class personClass {
     constructor(job, age, name) {
         this.job = job
         this.age = age
@@ -35,22 +76,24 @@ function getRandomPersonName() {
 }
 
 function createNewPerson() {
-    console.log("NAMES: " + getRandomPersonName())
-    var newPerson = new person("unemployed", 0, getRandomPersonName)
+    var newPerson = new personClass("unemployed", 0, getRandomPersonName())
     people.push(newPerson)
-    console.log(people)
 }
 
-function currentActivity() { // Run every frame
-    if (action == "wander") {
-        wander()
+function currentActivity() { // Runs every frame
+    for (let i = 0; i < people.length; i++) {
+        if (action == "wander") {
+            wander(i)
+        }
     }
 }
 
-function wander() {
-    // Move around randomly
+function wander(index) { // Move around randomly
+    let person = people[index]
+
+    
 }
 
-requestAnimationFrame(animationHub);
+// requestAnimationFrame(animationHub);
 
-console.log(performance.now())
+// console.log(performance.now())
