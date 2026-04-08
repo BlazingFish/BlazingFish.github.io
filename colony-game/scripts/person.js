@@ -2,15 +2,20 @@ var action // Current action
 
 var people = []
 
-var person = {
-    occupation: "unemployed"
-}
+var maleNames = [
+    "Zimfafawe",
+    "Bob",
+    "Chuck",
+    "David",
+    "Donald",
+    "Edith",
+    "Zyn",
+    "Muhammad",
+    "Sam",
+    "Rhys",
+    "Henry"
+]
 
-// new person{
-//     occupation: "very employed"
-// }
-
-// SOLUTION 2 START
 class person {
     constructor(job, age, name) {
         this.job = job
@@ -19,12 +24,21 @@ class person {
     }
 }
 
-function newPerson() {
-    // SOLUTION 1: HENRY ARRAY
-    // people.push(["unemployed", 0, "bob"]) // Occupation, age, name
+window.addEventListener("keydown", function(event) {
+    if (event.key == "p") {
+        createNewPerson()
+    }
+})
 
-    // SOLUTION 2: CLASS OBJECTS
-    var person = new person("bob", 7, "Henry")
+function getRandomPersonName() {
+    return names[Math.round(Math.random()*(names.length-1))]
+}
+
+function createNewPerson() {
+    console.log("NAMES: " + getRandomPersonName())
+    var newPerson = new person("unemployed", 0, getRandomPersonName)
+    people.push(newPerson)
+    console.log(people)
 }
 
 function currentActivity() { // Run every frame
