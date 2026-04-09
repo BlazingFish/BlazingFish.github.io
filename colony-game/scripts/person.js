@@ -28,7 +28,7 @@ var names = [
     "Jacob",
     "Zac",
     "Andrew",
-    "Liv",
+    "Olivia",
     "Anna",
     "Victoria",
     "Isabelle",
@@ -81,7 +81,7 @@ function getRandomPersonName() {
 
 function createNewPerson() {
     // Job, age, name, position
-    var newPerson = new personClass("unemployed", 0, getRandomPersonName(), personSpawn, "wander")
+    var newPerson = new personClass("unemployed", 0, getRandomPersonName(), [personSpawn[0], personSpawn[1]], "wander")
     people.push(newPerson)
 }
 
@@ -89,6 +89,7 @@ function currentActivity() { // Runs every frame
     // console.log("ewgiryu")
     for (let i = 0; i < people.length; i++) {
         let person = people[i]
+        // console.log(person)
         if (person.action == "wander") {
             wander(person)
         }
