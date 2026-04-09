@@ -1,6 +1,8 @@
-var action // Current action
+// var action // Current action
 
 var people = []
+
+var personSpawn = [width/2, height/2] // Where the people spawn
 
 // var personGrid
 
@@ -58,10 +60,12 @@ var names = [
 ]
 
 class personClass {
-    constructor(job, age, name) {
-        this.job = job
+    constructor(job, age, name, position, action) {
+        this.job = job;
         this.age = age
         this.name = name;
+        this.position = position;
+        this.action = action
     }
 }
 
@@ -76,22 +80,25 @@ function getRandomPersonName() {
 }
 
 function createNewPerson() {
-    var newPerson = new personClass("unemployed", 0, getRandomPersonName())
+    // Job, age, name, position
+    var newPerson = new personClass("unemployed", 0, getRandomPersonName(), personSpawn, "wander")
     people.push(newPerson)
 }
 
 function currentActivity() { // Runs every frame
+    // console.log("ewgiryu")
     for (let i = 0; i < people.length; i++) {
-        if (action == "wander") {
-            wander(i)
+        let person = people[i]
+        if (person.action == "wander") {
+            wander(person)
         }
     }
 }
 
-function wander(index) { // Move around randomly
-    let person = people[index]
+function wander(person) { // Move around randomly
+    // console.log("ewgiryu")
 
-    
+    person.position[0] += 1
 }
 
 // requestAnimationFrame(animationHub);

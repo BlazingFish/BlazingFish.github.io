@@ -1,8 +1,6 @@
 // Use GPU if poorly optimized
 
 var ctx = canvas.getContext("2d");
-var width
-var height
 
 var lights = [] // x, y, intensity
 

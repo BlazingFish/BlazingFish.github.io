@@ -41,3 +41,10 @@ function colourTile(properties) {
     }
     // return
 }
+
+function drawPeople() {
+    for (let i = 0; i < people.length; i++) {
+        let person = people[i]
+        ctx.fillRect(person.position[0], person.position[1], 100, 100)
+    }
+}
