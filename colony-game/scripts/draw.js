@@ -43,8 +43,14 @@ function colourTile(properties) {
 }
 
 function drawPeople() {
+    let size = 10
     for (let i = 0; i < people.length; i++) {
         let person = people[i]
-        ctx.fillRect(person.position[0], person.position[1], 100, 100)
+        ctx.clearRect(person.position[0], person.position[1], size, size)
+        ctx.clearRect(person.position[0], person.position[1]+size, size, size)
+        ctx.fillStyle = "rgb(241, 194, 125)";
+        ctx.fillRect(person.position[0], person.position[1], size, size)
+        ctx.fillStyle = "rgb(210, 43, 43)";
+        ctx.fillRect(person.position[0], person.position[1]+size, size, size)
     }
 }
