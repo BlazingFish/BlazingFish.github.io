@@ -1,7 +1,8 @@
-function drawTiles(x, y) {
-    var colour = colourTile(tiles[x][y], scale)
+function drawTiles(x, y, colour) {
+    // var colour = colourTile(tiles[x][y], scale)
     
     if (colour != false) {
+        // console.log(colour)
         ctx.fillStyle = colour
         ctx.fillRect((x*scale)/1912, (y*scale)/948, (scale+0.5)/1912, (scale+0.5)/948);
     }
@@ -16,6 +17,7 @@ function randomizeRGB(red, green, blue, variance) {
 }
 
 function colourTile(properties) {
+    // console.log(properties[0])
     let light = properties[1]
 
     if (properties[0] == "grass") {
@@ -24,33 +26,26 @@ function colourTile(properties) {
     else if (properties[0] == "earth") {
         return randomizeRGB(120*light, 69*light, 19*light, 10)
     }
-    // else if (properties[0] == "air") {
-    //     return "rgb(0, 0, 0)";
-    // }
     else if (properties[0] == "rock") {
         return randomizeRGB(100*light, 100*light, 100*light, 10)
     }
     else if (properties[0] == "torch") {
         return "rgb(255, 165, 0)"
     }
-    // else if (properties[0] == "sky") {
-    //     return "rgb(255, 100, 100"
-    // }
     else {
         return false
     }
-    // return
 }
 
-function drawPeople() {
-    let size = 10
-    for (let i = 0; i < people.length; i++) {
-        let person = people[i]
-        ctx.clearRect(person.position[0], person.position[1], size, size)
-        ctx.clearRect(person.position[0], person.position[1]+size, size, size)
-        ctx.fillStyle = "rgb(241, 194, 125)";
-        ctx.fillRect(person.position[0], person.position[1], size, size)
-        ctx.fillStyle = "rgb(210, 43, 43)";
-        ctx.fillRect(person.position[0], person.position[1]+size, size, size)
-    }
-}
+// function drawPeople() {
+//     let size = 10
+//     for (let i = 0; i < people.length; i++) {
+//         let person = people[i]
+//         ctx.clearRect(person.position[0], person.position[1], size, size)
+//         ctx.clearRect(person.position[0], person.position[1]+size, size, size)
+//         ctx.fillStyle = "rgb(241, 194, 125)";
+//         ctx.fillRect(person.position[0], person.position[1], size, size)
+//         ctx.fillStyle = "rgb(210, 43, 43)";
+//         ctx.fillRect(person.position[0], person.position[1]+size, size, size)
+//     }
+// }

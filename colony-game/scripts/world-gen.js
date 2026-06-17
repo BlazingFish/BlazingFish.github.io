@@ -9,8 +9,6 @@ var tiles = []
 
 generate()
 
-// 1D perlin noise <- idk what this comment is doing here, but it's staying.
-
 function generate() {
     ctx.save()
     ctx.scale(width, height)
@@ -31,39 +29,12 @@ function generate() {
 
             var tile
             var ground = (((noise.simplex2((x/(hilliness/scale))+100,0)+1)/2)*yRes)/6+yRes/8
-
-            // if (x == 50 && y == 100) {
-            //     tile = ["torch", 1]
-            //     lights.push(x+","+y+","+1)
-            // }
             
             const currentMountainHeight = mountainHeight*Math.E**(-1*(mountainWidth*(x-mountainPos))**2)
             const newLayer = ground - (grassDepth/scale)
 
-            if (currentMountainHeight > 1) { // Mountain
+            if (currentMountainHeight > 1) {
                 ground += currentMountainHeight
-                // if (yRes-y < ground) {
-                    // if (yRes-y > (newLayer)*currentMountainHeight) {
-                    //     if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale) {
-                    //         tile = ["grass", 0]
-                    //     }
-                    //     else {
-                    //         tile = ["earth", 0]
-                    //     }
-                    // }
-                    // else if (yRes-y > (newLayer - 2*scale)*currentMountainHeight){
-                    //     if ((yRes-y-newLayer)*(approxOne(1.5)) > grassDepth/scale - 4*scale) {
-                    //         tile = ["earth", 0]
-                    //     }
-                    //     else {
-                    //         tile = ["rock", 0]
-                    //     }
-                    // }
-                    // else {
-                    //     tile = ["rock", 0]
-                    // }
-                // }
-                // else {
                     if (yRes-y < ground) {
                         tile = ["rock", 0]
                     }
@@ -74,7 +45,6 @@ function generate() {
                     else {
                         tile = ["air", 0]
                     }
-                // }
             }
             else { // Plains
                 if (yRes-y < ground) {
@@ -106,11 +76,15 @@ function generate() {
                     tile = ["air", 0]
                 }
             }
+            var colour = colourTile(tile, scale)
+            // console.log(colour)
+            tile.push(colour)
 
             tiles[x][y] = tile
-            drawTiles(x, y, width, height)
+            drawTiles(x, y, colour)
         }
     }
+    console.log(tiles)
     // ctx.restore()
     for (let i = 0; i < lights.length; i++) {
         checkAroundLight(lights[i])
