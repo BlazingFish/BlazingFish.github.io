@@ -1,7 +1,8 @@
 function drawTiles(x, y, colour) {
     // var colour = colourTile(tiles[x][y], scale)
     
-    if (colour != false) {
+    if (typeof colour == "string") {
+        // console.log(tiles[x][y][2])
         // console.log(colour)
         ctx.fillStyle = colour
         ctx.fillRect((x*scale)/1912, (y*scale)/948, (scale+0.5)/1912, (scale+0.5)/948);

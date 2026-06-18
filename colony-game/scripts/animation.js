@@ -10,11 +10,13 @@ function animationHub(a) { // a is probably frame
     // ctx.clearRect(0, 0, width, height)
     ctx.save()
     ctx.scale(width, height)
-    // for (i = 0; i < tiles.length; i++) {
-    //     for (j = 0; j < tiles[0].length; j++) {
-    //         drawTiles(i, j)
-    //     }
-    // }
+    // console.log("p")
+    for (i = 0; i < tiles.length; i++) {
+        for (j = 0; j < tiles[0].length; j++) {
+            drawTiles(i, j, tiles[i][j][2])
+            // console.log("p")
+        }
+    }
     ctx.restore()
 
     currentActivity()

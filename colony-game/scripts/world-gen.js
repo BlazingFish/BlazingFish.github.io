@@ -84,7 +84,7 @@ function generate() {
             // drawTiles(x, y, colour)
         }
     }
-    console.log(tiles)
+    // console.log(tiles)
     // ctx.restore()
     for (let i = 0; i < lights.length; i++) {
         checkAroundLight(lights[i])
@@ -96,6 +96,7 @@ function generate() {
             drawTiles(i, j, colour)
         }
     }
+    console.log(tiles)
     // for (let i = 0; i < lights.length; i++) {
     //     checkAroundLight(lights[i])
     // }
