@@ -17,6 +17,7 @@ function randomizeRGB(red, green, blue, variance) {
 }
 
 function colourTile(properties) {
+    // console.log(properties)
     // console.log(properties[0])
     let light = properties[1]
 

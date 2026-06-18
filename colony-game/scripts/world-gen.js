@@ -76,12 +76,12 @@ function generate() {
                     tile = ["air", 0]
                 }
             }
-            var colour = colourTile(tile, scale)
+            // var colour = colourTile(tile, scale)
             // console.log(colour)
-            tile.push(colour)
+            // tile.push(colour)
 
             tiles[x][y] = tile
-            drawTiles(x, y, colour)
+            // drawTiles(x, y, colour)
         }
     }
     console.log(tiles)
@@ -89,6 +89,16 @@ function generate() {
     for (let i = 0; i < lights.length; i++) {
         checkAroundLight(lights[i])
     }
+    for (let i = 0; i < tiles.length; i++) {
+        for (let j = 0; j < tiles[0].length; j++) {
+            var colour = colourTile(tiles[i][j], scale)
+            tiles[i][j].push(colour)
+            drawTiles(i, j, colour)
+        }
+    }
+    // for (let i = 0; i < lights.length; i++) {
+    //     checkAroundLight(lights[i])
+    // }
     ctx.restore()
 }
 
