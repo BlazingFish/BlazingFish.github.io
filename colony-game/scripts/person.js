@@ -60,12 +60,13 @@ var names = [
 ]
 
 class personClass {
-    constructor(job, age, name, position, action) {
+    constructor(job, age, name, position, action, prevPosition) {
         this.job = job;
         this.age = age
         this.name = name;
         this.position = position;
         this.action = action
+        this.prevPosition = prevPosition
     }
 }
 
